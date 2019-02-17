@@ -10,7 +10,7 @@ class ListPeople extends Component {
     }))
   }
   clearFilter = () =>{
-    this.updateQuery('')
+    this.updateQuery()
   }
 
   render(){
@@ -20,7 +20,7 @@ class ListPeople extends Component {
       ? people
       : people.filter((p) =>(
         p.name.toLowerCase().includes(query.toLowerCase())
-      ))
+        ))
 
     return (
       <div>

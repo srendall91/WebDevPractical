@@ -1,30 +1,19 @@
 import React, { Component } from 'react';
 import ListPeople from './ListPeople';
+import * as PeopleAPI from './utils/PeopleAPI'
 
 class App extends Component {
   state = {
-    people: [
-        {
-          id: 'russell',
-          name: 'Russell Hunter',
-          handle: '@russell_hunter',
-        },
-        {
-          id:'derek',
-          name:'Derek Summers',
-          handle: '@derek_summers'
-        },
-        {
-          id:'gill',
-          name:'Gillian Douglas',
-          handle: '@gill_douglas'
-        },
-        {
-          id:'stuart',
-          name:'Stuart Rendall',
-          handle: '@stuart_rendall'
-        }
-    ]
+    people: []
+  }
+
+  componentDidMount(){
+    PeopleAPI.getAll()
+      .then((people) => {
+        this.setState(() => ({
+          people
+        }))
+      })
   }
 
   removePerson = (person) =>{
@@ -33,9 +22,12 @@ class App extends Component {
         return p.id !== person.id
       })
     }))
+
+    PeopleAPI.remove(person)
   }
 
   render() {
+    console.log('App.js called, state = ',this.state)
     return (
       <div className="container">
         App.js: App class called
