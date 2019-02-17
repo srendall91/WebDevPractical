@@ -12,7 +12,9 @@ class ListPeople extends Component {
                 <div className="card-body">
                   <h5 className="card-title">{person.name}</h5>
                   <p className="card-text">{person.handle}</p>
-                  <button type="button" className="btn btn-dark">X</button>
+                  <button
+                    onClick={() => this.props.onDeletePerson(person)}
+                    type="button" className="btn btn-dark">X</button>
                 </div>
               </div>
               <br/>
