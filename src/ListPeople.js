@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import { Link } from 'react-router-dom'
 
 class ListPeople extends Component {
   state = {
@@ -15,7 +16,7 @@ class ListPeople extends Component {
 
   render(){
     const { query } = this.state
-    const { people, onDeletePerson } = this.props
+    const { people, onDeletePerson, onNavigate } = this.props
     const showingPeople = query === ''
       ? people
       : people.filter((p) =>(
@@ -34,11 +35,15 @@ class ListPeople extends Component {
                 value= {this.state.query}
                 onChange={(event) => this.updateQuery(event.target.value)}
               />
-              <button className="btn btn-outline-success my-2 my-sm-0"
-                type="submit">Search</button>
+              <Link
+                to='/create'
+                onClick={onNavigate}
+                className="btn btn-outlint-success my-2 my-sm-0"
+                >Add person</Link>
             </form>
           </nav>
         </div>
+
 
         {showingPeople.length !== people.length &&(
           <div className="text-center">

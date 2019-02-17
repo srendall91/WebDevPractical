@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import ListPeople from './ListPeople';
 import * as PeopleAPI from './utils/PeopleAPI'
+import CreatePerson from './CreatePerson'
+import { Route } from 'react-router-dom'
 
 class App extends Component {
   state = {
-    people: []
+    people: [],
+    screen: 'list'
   }
 
   componentDidMount(){
@@ -26,15 +29,34 @@ class App extends Component {
     PeopleAPI.remove(person)
   }
 
+  createPerson = (person) => {
+    PeopleAPI.create(person)
+    .then((person)=> {
+      this.setState((currentState) => ({
+        people: currentState.people.concat([person])
+      }))
+    })
+  }
+
   render() {
     console.log('App.js called, state = ',this.state)
     return (
       <div className="container">
         App.js: App class called
-        <ListPeople
-          people={this.state.people}
-          onDeletePerson={this.removePerson}
+        <Route exact path='/' render={()=>(
+          <ListPeople
+            people={this.state.people}
+            onDeletePerson={this.removePerson}
          />
+       )} />
+         <Route path='/create' render={({history})=>(
+           <CreatePerson
+            onCreatePerson={(person) =>{
+              this.createPerson(person)
+              history.push('/')
+            }}
+          />
+         )}/>
       </div>
     );
   }

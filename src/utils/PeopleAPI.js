@@ -27,5 +27,5 @@ export const create = (body) =>
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.strinify(body)
+    body: JSON.stringify(body)
   }).then(res => res.json())
